@@ -31,14 +31,12 @@ public class BottomSheetFragment extends Fragment implements View.OnClickListene
         View bottomSheet = v.findViewById( R.id.bottom_sheet );
         Button button1 = (Button) v.findViewById( R.id.button_1 );
         Button button2 = (Button) v.findViewById( R.id.button_2 );
-        Button button3 = (Button) v.findViewById( R.id.button_3 );
 
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
-        button3.setOnClickListener(this);
 
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        mBottomSheetBehavior.setPeekHeight(30);
+        mBottomSheetBehavior.setPeekHeight(50);
 
         return v;
     }
