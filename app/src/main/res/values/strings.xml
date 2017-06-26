@@ -9,4 +9,8 @@
     <string name="instruction">Choose a sample from the menu on the left.</string>
     <string name="bottom_sheet_expand">Expand</string>
     <string name="bottom_sheet_collapse">Collapse</string>
+    <string name="nav_bottom_sheet">Bottom Sheet</string>
+    <string name="nav_bottom_sheet_gallery">Gallery</string>
+    <string name="nav_send">Send</string>
+    <string name="nav_share">Share</string>
 </resources>

@@ -5,11 +5,11 @@
         <item
             android:id="@+id/nav_bottom_sheet"
             android:icon="@drawable/ic_star"
-            android:title="Bottom Sheet"/>
+            android:title="@string/nav_bottom_sheet"/>
         <item
-            android:id="@+id/nav_bottom_sheet_dialog"
+            android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_star"
-            android:title="Bottom Sheet Dialog"/>
+            android:title="@string/nav_bottom_sheet_gallery"/>
     </group>
 
     <item android:title="Communicate">
@@ -17,11 +17,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share"/>
+                android:title="@string/nav_share"/>
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send"/>
+                android:title="@string/nav_send"/>
         </menu>
     </item>
 
