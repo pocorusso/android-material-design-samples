@@ -17,14 +17,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 public class GalleryFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-
-
-
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
 
     public GalleryFragment(){}
@@ -33,6 +31,7 @@ public class GalleryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //handler for UI thread operation in response to the result of bitmap decoding
         Handler responseHandler = new Handler();
 
         mThumbnailDownloader = new ThumbnailDownloader<>(responseHandler);
@@ -55,9 +54,19 @@ public class GalleryFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_gallery_recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
 
-        new QueryCursorTask().execute();
+        //query content resolve to get a cursor on a background thread.
+        new AsyncTask<Void,Void,Cursor>(){
+            @Override
+            protected Cursor doInBackground(Void... voids) {
+                return initCursor();
+            }
 
+            @Override
+            protected void onPostExecute(Cursor cursor) {
+                mRecyclerView.setAdapter(new PhotoAdapter(getActivity(), cursor));
+            }
 
+        }.execute();
 
         return v;
     }
@@ -74,7 +83,6 @@ public class GalleryFragment extends Fragment {
         mThumbnailDownloader.quit();
     }
 
-    //TODO do the query on an async task
     private Cursor initCursor() {
         final String[] projection = { MediaStore.Images.Media.DATA,
                                         MediaStore.Images.Media._ID };
@@ -87,25 +95,17 @@ public class GalleryFragment extends Fragment {
         return cursor;
     }
 
-    private class QueryCursorTask extends AsyncTask<Void,Void,Cursor> {
-
-        public QueryCursorTask() {}
-
-        @Override
-        protected Cursor doInBackground(Void... params) {
-            return initCursor();
-        }
-
-        @Override
-        protected void onPostExecute(Cursor cursor) {
-            mRecyclerView.setAdapter(new PhotoAdapter(getActivity(), cursor));
-        }
-    }
-
-
     private class GalleryItem {
         private int mId;
         private Uri mUri;
+
+        public int getId() {
+            return mId;
+        }
+
+        public Uri getUri() {
+            return mUri;
+        }
 
         public GalleryItem() {}
 
@@ -145,11 +145,20 @@ public class GalleryFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-           //TODO select item here.
+            PhotoHolder holder = (PhotoHolder) view.getTag();
+            if (holder != null && holder.mGalleryItem!=null) {
+                int id = holder.mGalleryItem.getId();
+                //TODO handle on click action here
+                Toast.makeText(getActivity(), "Item clicked: " + id, Toast.LENGTH_SHORT).show();
+            }
         }
+
 
     }
 
+    /**
+     * PhotoAdapter wraps a CursorAdapter to handle loading photo images from the gallery cursor
+     */
     private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder> {
         private CursorAdapter mCursorAdapter;
         private Context mContext;
@@ -181,13 +190,23 @@ public class GalleryFragment extends Fragment {
         }
 
 
-
+        /**
+         * Hand off the view inflating to cursor adapter
+         * @param viewGroup
+         * @param viewType
+         * @return
+         */
         @Override
         public PhotoHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
             View view = mCursorAdapter.newView(mContext, mCursorAdapter.getCursor(), viewGroup);
             return new PhotoHolder(view);
         }
 
+        /**
+         * Hand off the bind to cursor adapter
+         * @param photoHolder
+         * @param position
+         */
         @Override
         public void onBindViewHolder(PhotoHolder photoHolder, int position) {
             mCursorAdapter.getCursor().moveToPosition(position);
