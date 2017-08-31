@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorIcons">#FF000000</color>
+    <color name="bottom_sheet">#333F51B5</color>
 </resources>

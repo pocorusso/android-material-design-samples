@@ -3,20 +3,17 @@ package com.pocorusso.mdsamples;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 
-public class BottomSheetFragment extends Fragment implements View.OnClickListener {
+public class GalleryBottomSheetFragment extends GalleryFragment implements View.OnClickListener {
 
     private BottomSheetBehavior mBottomSheetBehavior;
 
-    public BottomSheetFragment() {
-
-    }
+    public GalleryBottomSheetFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +23,7 @@ public class BottomSheetFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
+        View v = inflater.inflate(R.layout.fragment_gallery_bottom_sheet, container, false);
 
         View bottomSheet = v.findViewById( R.id.bottom_sheet );
         Button button1 = (Button) v.findViewById( R.id.button_1 );
@@ -36,8 +33,9 @@ public class BottomSheetFragment extends Fragment implements View.OnClickListene
         button2.setOnClickListener(this);
 
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        mBottomSheetBehavior.setPeekHeight(50);
+        mBottomSheetBehavior.setPeekHeight(100);
 
+        initGallery(v);
         return v;
     }
 

@@ -51,6 +51,11 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_gallery, container, false);
+        initGallery(v);
+        return v;
+    }
+
+    protected void initGallery(View v) {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_gallery_recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
 
@@ -68,7 +73,6 @@ public class GalleryFragment extends Fragment {
 
         }.execute();
 
-        return v;
     }
 
     @Override
@@ -86,7 +90,7 @@ public class GalleryFragment extends Fragment {
     private Cursor initCursor() {
         final String[] projection = { MediaStore.Images.Media.DATA,
                                         MediaStore.Images.Media._ID };
-        final String orderBy = MediaStore.Images.Media._ID + " DESC LIMIT 1000";
+        final String orderBy = MediaStore.Images.Media._ID + " DESC";
         Cursor cursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 projection,
                 null,
@@ -152,8 +156,6 @@ public class GalleryFragment extends Fragment {
                 Toast.makeText(getActivity(), "Item clicked: " + id, Toast.LENGTH_SHORT).show();
             }
         }
-
-
     }
 
     /**
