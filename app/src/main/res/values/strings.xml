@@ -13,7 +13,21 @@
     <string name="nav_gallery">Gallery</string>
     <string name="nav_bottom_sheet_gallery">Bottom Sheet Gallery</string>
     <string name="nav_cards">Cards</string>
+    <string name="nav_scroll1">Scroll1</string>
     <string name="nav_send">Send</string>
     <string name="nav_share">Share</string>
     <string name="send_to">Send</string>
+
+    <!-- Days -->
+    <string-array name="days_names">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string name="title_activity_technique1">Technique 1</string>
 </resources>

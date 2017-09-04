@@ -127,6 +127,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
 
+        }   else if (id == R.id.nav_scroll1) {
+                ScrollFragment fragment = new ScrollFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.commit();
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
